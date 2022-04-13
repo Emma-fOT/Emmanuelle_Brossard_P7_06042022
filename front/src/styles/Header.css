@@ -1,3 +1,10 @@
-.logo {
-	width: 200px;
+.header {
+	height: 70px;
+	border-bottom: 1px solid red;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.header_logo {
+	width: 250px;
 }

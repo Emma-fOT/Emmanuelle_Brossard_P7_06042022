@@ -1,0 +1,12 @@
+.footer{
+    text-align: center;
+    border-top: 1px solid red;
+}
+
+.footer_logo {
+	height: 100px;
+}
+
+.footer p{
+    margin-top: 0;
+}
