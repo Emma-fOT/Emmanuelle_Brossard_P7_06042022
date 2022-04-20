@@ -5,6 +5,7 @@ import Home from "./Home";
 import Signup from "./Signup";
 import Login from "./Login";
 import Logout from "./Logout";
+import "../styles/App.css";
 
 function App() {
   return (

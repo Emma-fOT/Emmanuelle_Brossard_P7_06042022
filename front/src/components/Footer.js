@@ -1,4 +1,4 @@
-import logo from "../assets/icon-logo-and-name.png";
+import logo from "../assets/icone-groupomania-logo-nom.png";
 import "../styles/Footer.css";
 
 export default function Footer() {

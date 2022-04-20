@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import logo from "../assets/icon-logo-and-name.png";
+import logo from "../assets/icone-groupomania-logo-nom.png";
 import "../styles/Header.css";
 
 export default function Header() {

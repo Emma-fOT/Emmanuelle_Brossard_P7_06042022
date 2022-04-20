@@ -1,0 +1,78 @@
+.home{
+    background-image: url("../assets/locaux-entreprise-groupomania.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.home_banner{
+    background-color: rgba(0, 18, 60, 0.7);
+    color: white;
+    width: 100%;
+    position: relative;
+    top: 150px;
+}
+
+.home_banner_title{
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 75px 50px 25px 50px;
+    margin: 0;
+}
+
+.home_banner_subtitle{
+    font-size: 2rem;
+    font-style: italic;
+    padding: 0 0 40px 0;
+    margin:0;
+}
+
+.home_login a{
+    padding: 10px;
+    width: 150px;
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(0, 18, 60);
+    text-decoration: none;
+	text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 50px;
+    box-shadow: 0 0 15px #fff;
+}
+
+.home_login:hover{
+    transform: scale(1.1);
+    transition: all ease 500ms;
+}
+
+.home_signup{
+    padding: 20px 0 50px 0;
+    margin:0;
+}
+.home_signup a{
+    color: white;
+}
+
+@media all and (max-width: 980px) {
+    .home_banner{
+        top: 100px;
+    }
+    .home_banner_title{
+        font-size: 2.5rem;
+        padding-top: 50px;
+    }
+ 
+}
+@media all and (max-width: 480px) {
+    .home_banner{
+        top: 50px;
+    }
+    .home_banner_title{
+        font-size: 2rem;
+    }
+    .home_banner_subtitle{
+        font-size: 1.5rem;
+    }
+}
