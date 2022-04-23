@@ -16,7 +16,10 @@ module.exports = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: {
+          args: true,
+          msg: "Un compte existe déjà pour cette adresse mail. Veuillez en choisir une autre.",
+        },
       },
       password: {
         type: DataTypes.STRING,

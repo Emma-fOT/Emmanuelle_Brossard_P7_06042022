@@ -43,7 +43,10 @@ exports.signup = (req, res, next) => {
               sequelize.close(); // ??? Close the connexion after each request ???
               res.status(201).json({ message: "Utilisateur créé !" });
             })
-            .catch((error) => res.status(400).json({ error }));
+            .catch((error) => {
+              error = error.errors[0].message;
+              res.status(400).json({ error });
+            });
         })
         .catch((error) => res.status(500).json({ error }));
     }

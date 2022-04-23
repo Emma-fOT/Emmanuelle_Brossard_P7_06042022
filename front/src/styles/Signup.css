@@ -1,0 +1,88 @@
+.signup{
+    background-image: url("../assets/locaux-entreprise-groupomania.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    min-height: 600px;
+}
+
+.signupContainer{
+  max-width: 400px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(0, 18, 60,0.7);
+  color: white;
+}
+
+h1{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+h1, p{
+  text-align: center;
+}
+
+.signupForm{
+  display: flex;
+  flex-direction: column;
+  width:70%;
+  margin-left: auto;
+  margin-right: auto; 
+  margin-top: 20px;
+}
+
+label{
+  font-size: 1.3rem;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 60px;
+}
+
+label input{
+  position: absolute;
+  top: 30px;
+  left: 0px;
+  padding:5px 5% 5px 5%;
+  margin-bottom: 10px;
+  border: 1px solid white;
+  background-color: rgba(0, 18, 60,0.7);
+  font-size: 1rem;
+  width: 90%;
+  color: white;
+}
+
+label input::placeholder { 
+  color: rgba(255, 255, 255,0.7);
+}
+
+input.submitButton{
+margin-left: auto;
+margin-right: auto;
+font-size: 1rem;
+color: rgba(0, 18, 60);
+padding: 10px;
+width: 200px;
+border-radius: 10px;
+border-width: 0;
+background-color: white;
+font-weight: bold;
+text-transform: uppercase;
+}
+
+input.submitButton:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all ease 500ms;
+}
+
+a {
+  color: white;
+  text-decoration: underline;
+}
+
+.error{
+  color: rgb(255, 130, 130);
+}
