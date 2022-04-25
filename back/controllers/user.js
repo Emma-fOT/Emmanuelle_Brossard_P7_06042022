@@ -69,7 +69,7 @@ exports.login = (req, res, next) => {
           }
           sequelize.close(); // ??? Close the connexion after each request ???
           res.status(200).json({
-            userId: user.id,
+            user: { userId: user.id, username: user.username, email: user.email },
             token: jwt.sign({ userId: user.id }, TOKEN_KEY, { expiresIn: "24h" }),
           });
         })

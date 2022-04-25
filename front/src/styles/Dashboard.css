@@ -1,0 +1,32 @@
+.dashboard{
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-wrap: nowrap;
+    color: rgba(0, 18, 60);
+}
+
+.profileContainer{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 18, 60);
+    color: white;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.postArea{
+    padding-top: 20px;
+    width: 70%;
+}
+
+.dashboardTitle{
+    text-align: center;
+}
+
+a{
+    color: rgba(0, 18, 60);
+}

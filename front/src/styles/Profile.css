@@ -1,0 +1,15 @@
+.profile{
+    max-width: -400px;
+}
+
+h2, .editProfile{
+    text-align: center;
+}
+
+.profileInfos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px;
+}

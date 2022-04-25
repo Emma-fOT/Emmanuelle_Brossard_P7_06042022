@@ -1,6 +1,5 @@
 //Documentation: https://www.youtube.com/watch?v=PKwu15ldZ7k (16:00)
 import React, { useContext, useState } from "react";
-import axios from "axios";
 
 // CONTEXT makes the props available to all components that use AuthContext,
 // like a global state for all the children of the provider.
@@ -14,9 +13,10 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
+  const APIPath = "http://localhost:3000/api/auth";
 
   function login(email, password) {
-    return fetch("http://localhost:3000/api/auth/login", {
+    return fetch(APIPath + "/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,15 +28,17 @@ export function AuthProvider({ children }) {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.error) {
           throw new Error(data.error);
         }
         setCurrentUser(data.user);
-        return data.user;
+        return currentUser;
       });
   }
+
   function signup(username, email, password) {
-    return fetch("http://localhost:3000/api/auth/signup", {
+    return fetch(APIPath + "/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
