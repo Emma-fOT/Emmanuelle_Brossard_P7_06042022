@@ -1,16 +1,16 @@
-.signup{
+.login{
     background-image: url("../assets/locaux-entreprise-groupomania.jpg");
     background-size: cover;
     background-position: center;
     height: 90vh;
-    min-height: 600px;
-    max-height: 700px;
-    padding-top: 10vh;
+    min-height: 500px;
+    max-height: 600px;
+    padding-top: 15vh;
 }
 
-.signupContainer{
-  max-width: 450px;
-  height:550px;
+.loginContainer{
+  max-width: 400px;
+  height:400px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -28,9 +28,11 @@ h1{
 
 h1, p{
   text-align: center;
+  padding-left:5px;
+  padding-right: 5px;
 }
 
-.signupForm{
+.loginForm{
   display: flex;
   flex-direction: column;
   width:70%;

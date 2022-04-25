@@ -14,7 +14,26 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
 
-  function login(username, email, password) {}
+  function login(email, password) {
+    return fetch("http://localhost:3000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        setCurrentUser(data.user);
+        return data.user;
+      });
+  }
 
   function signup(username, email, password) {
     return fetch("http://localhost:3000/api/auth/signup", {

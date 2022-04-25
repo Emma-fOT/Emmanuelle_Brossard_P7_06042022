@@ -28,7 +28,7 @@ export default function Signup() {
     try {
       setError("");
       await signup(username, email, password);
-      alert("Compte créé, veuillez maintenant vous connecter pour accéder à votre tableau de bord.");
+      alert("Compte créé avec succès, veuillez maintenant vous connecter pour accéder à votre tableau de bord.");
       navigate("/login");
     } catch (error) {
       setError(error.message);
@@ -43,19 +43,19 @@ export default function Signup() {
         <form className="signupForm" onSubmit={handleSubmit}>
           {/*Documentation for the structure of the labels: https://fr.reactjs.org/docs/forms.html */}
           <label>
-            Pseudo
+            Pseudo*
             <input type="text" id="username" name="username" placeholder="Antoine D" ref={usernameRef} required />
           </label>
           <label>
-            Email
+            Email*
             <input type="email" id="email" name="email" placeholder="antoinedupont@groupomania.fr" ref={emailRef} required />
           </label>
           <label>
-            Mot de passe
+            Mot de passe*
             <input type="password" id="password" placeholder="************" name="password" ref={passwordRef} required />
           </label>
           <label>
-            Confirmation du mot de passe
+            Confirmation du mot de passe*
             <input
               type="password"
               id="passwordConfirm"
