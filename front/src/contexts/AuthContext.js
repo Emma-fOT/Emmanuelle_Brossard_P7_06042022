@@ -1,5 +1,6 @@
 //Documentation: https://www.youtube.com/watch?v=PKwu15ldZ7k (16:00)
 import React, { useContext, useState } from "react";
+import axios from "axios";
 
 // CONTEXT makes the props available to all components that use AuthContext,
 // like a global state for all the children of the provider.
@@ -34,7 +35,6 @@ export function AuthProvider({ children }) {
         return data.user;
       });
   }
-
   function signup(username, email, password) {
     return fetch("http://localhost:3000/api/auth/signup", {
       method: "POST",
@@ -46,13 +46,15 @@ export function AuthProvider({ children }) {
         email,
         password,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return res.json().error;
-      }
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        setCurrentUser(data.user);
+        return data.user;
+      });
   }
 
   const value = { currentUser, signup, login };
