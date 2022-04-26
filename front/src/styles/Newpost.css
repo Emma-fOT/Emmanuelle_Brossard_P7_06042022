@@ -1,5 +1,59 @@
 .newpost{
-    padding: 20px;
+    background-color: white;
+    margin: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px #cbcbcb;
+}
+@media all and (max-width: 580px) {
+    .newpost{
+        margin: 20px;
+    }
+}
+
+.newpostForm{
     display: flex;
-    align-items: center;
+    flex-direction: column;
+}
+
+.newpostArea{
+    background-color: #f2f2f2;
+    border-radius: 25px;
+    border: none;
+    padding: 10px;
+    height: 50px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.newpostArea:hover{
+    background-color: #dedede;
+}
+
+#newpostContent{
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    height: 150px;
+}
+
+.newpostForm .submitButton{
+    color: #00123C;
+    background-color: rgba(255,0,0,0.7);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.newpostForm .submitButton:hover{
+background-color:  rgba(255,0,0,1);
+transform: scale(1.1);
+transition: all ease 500ms;
 }

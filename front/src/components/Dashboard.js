@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import Profile from "./Profile";
 import Newpost from "./Newpost";
-import Post from "./Post";
+import Posts from "./Posts";
 import "../styles/Dashboard.css";
 
 const Dashboard = () => {
@@ -44,8 +44,7 @@ const Dashboard = () => {
         <Newpost />
         <div className="postFeed">
           {postsList.map((elt) => {
-            console.log(elt);
-            return <Post key={elt.id} userId={elt.userId} postContent={elt.postContent} dateTime={elt.dateTime} />;
+            return <Posts key={elt.id} user={elt.user.username} postContent={elt.postContent} dateTime={elt.dateTime} />;
           })}
         </div>
       </div>

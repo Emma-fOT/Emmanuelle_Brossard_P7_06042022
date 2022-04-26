@@ -30,3 +30,16 @@
 a{
     color: rgba(0, 18, 60);
 }
+
+@media all and (max-width: 580px) {
+    .dashboard{
+        flex-direction: column-reverse;
+    }
+    .profileContainer, .postArea{
+        width:100%;
+    }
+    .profileContainer{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
