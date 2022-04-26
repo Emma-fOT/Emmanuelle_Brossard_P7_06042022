@@ -1,9 +1,13 @@
 .profile{
-    max-width: -400px;
+    max-width: 400px;
 }
 
 h2, .editProfile{
     text-align: center;
+}
+
+.editProfile a{
+    color: white;
 }
 
 .profileInfos{

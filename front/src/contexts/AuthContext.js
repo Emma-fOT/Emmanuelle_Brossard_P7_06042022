@@ -32,7 +32,7 @@ export function AuthProvider({ children }) {
         if (data.error) {
           throw new Error(data.error);
         }
-        setCurrentUser(data.user);
+        setCurrentUser(data);
         return currentUser;
       });
   }

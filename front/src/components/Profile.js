@@ -10,8 +10,8 @@ export default function Profile() {
     <div className="profile">
       <h2>Informations de profil</h2>
       <div className="profileInfos">
-        <p>Nom : {currentUser.username}</p>
-        <p>Email : {currentUser.email}</p>
+        <p>Nom : {currentUser.user.username}</p>
+        <p>Email : {currentUser.user.email}</p>
         <p>Mot de passe : ************</p>
       </div>
       <p className="editProfile">

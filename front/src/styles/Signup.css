@@ -83,7 +83,7 @@ input.submitButton:hover{
   transition: all ease 500ms;
 }
 
-a {
+.signup a {
   color: white;
   text-decoration: underline;
 }

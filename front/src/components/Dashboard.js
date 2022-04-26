@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import Profile from "./Profile";
 import Newpost from "./Newpost";
@@ -7,6 +7,32 @@ import "../styles/Dashboard.css";
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
+  const [postsList, setPostsList] = useState([]);
+
+  useEffect(() => {
+    const url = "http://localhost:3000/api/posts";
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser.token}`,
+      },
+    };
+    fetch(url, options).then(
+      (response) => {
+        if (response.ok) {
+          response.json().then((data) => {
+            setPostsList(data);
+          });
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, []);
+  //Second argument is empty array because we don't want to allways re-render the component.
+  //https://medium.com/programming-essentials/how-to-do-a-fetch-inside-react-components-7875a213da7e
 
   return (
     <div className="dashboard">
@@ -14,9 +40,14 @@ const Dashboard = () => {
         <Profile />
       </div>
       <div className="postArea">
-        <h1 className="dashboardTitle">Welcome {currentUser.username}</h1>
+        <h1 className="dashboardTitle">Bienvenue {currentUser.user.username}</h1>
         <Newpost />
-        <Post />
+        <div className="postFeed">
+          {postsList.map((elt) => {
+            console.log(elt);
+            return <Post key={elt.id} userId={elt.userId} postContent={elt.postContent} dateTime={elt.dateTime} />;
+          })}
+        </div>
       </div>
     </div>
   );
