@@ -16,8 +16,13 @@ export default function Login() {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
+    setError("");
+    if (!password || !email) {
+      setError("Email ou mot de passe manquant.");
+      return;
+    }
+
     try {
-      setError("");
       await login(email, password);
       alert("Bienvenue dans votre tableau de bord.");
       navigate("/dashboard");

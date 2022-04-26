@@ -5,20 +5,21 @@ import "../styles/Navbar.css";
 import { CgMenu } from "react-icons/cg";
 import { CgClose } from "react-icons/cg";
 import { motion } from "framer-motion";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Header() {
-  const [isLoggedIn, logIn] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const hamburgerMenuIcon = <CgMenu className="hamburger-btn" size="40px" color="rgb(255,0,0)" onClick={() => setMenuOpen(!isMenuOpen)} />;
   const closeMenuIcon = <CgClose className="hamburger-btn" size="40px" color="rgb(255,0,0)" onClick={() => setMenuOpen(!isMenuOpen)} />;
   const closeMobileMenu = () => setMenuOpen(false);
   const animateFrom = { opacity: 0, x: 800 };
   const animateTo = { opacity: 1, x: 0 };
+  const { currentUser } = useAuth();
 
   return (
     <div className="navigation">
       <nav className="standardNavigation">
-        {!isLoggedIn ? (
+        {currentUser === undefined ? (
           <div className="navlink">
             {/*Documentation: https://reactrouter.com/docs/en/v6/api#navlink */}
             <NavLink to="/login">Se connecter</NavLink>
@@ -34,7 +35,7 @@ export default function Header() {
         {isMenuOpen ? (
           <>
             {closeMenuIcon}
-            {!isLoggedIn ? (
+            {currentUser === undefined ? (
               <motion.ul
                 className="navlink"
                 initial={animateFrom}

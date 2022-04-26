@@ -16,6 +16,8 @@ export function AuthProvider({ children }) {
   const APIPath = "http://localhost:3000/api/auth";
 
   function login(email, password) {
+    //Or use Axios to make a request to the API: https://www.youtube.com/watch?v=X3qyxo_UTR4&list=PL0Zuz27SZ-6PRCpm9clX0WiBEMB70FWwd&index=2 22:00
+    //With Axios, no need to transform the data into JSON & not need to test if the request is ok (it sends automatically an error if not)
     return fetch(APIPath + "/login", {
       method: "POST",
       headers: {
@@ -54,8 +56,7 @@ export function AuthProvider({ children }) {
         if (data.error) {
           throw new Error(data.error);
         }
-        setCurrentUser(data.user);
-        return data.user;
+        return data;
       });
   }
 

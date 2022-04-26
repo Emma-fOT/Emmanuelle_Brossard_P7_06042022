@@ -6,8 +6,10 @@ import Signup from "./Signup";
 import Login from "./Login";
 import Logout from "./Logout";
 import Dashboard from "./Dashboard";
+import AdminDashboard from "./AdminDashboard";
 import "../styles/App.css";
 import { AuthProvider } from "../contexts/AuthContext";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
@@ -19,7 +21,12 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route element={<ProtectedRoute allowedRoles={["subscriber"]} />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+            <Route path="/admindashboard" element={<AdminDashboard />} />
+          </Route>
         </Routes>
         <Footer />
       </Router>
