@@ -30,7 +30,7 @@ const Dashboard = () => {
         console.log(error);
       }
     );
-  }, []);
+  }, [currentUser]); // Add the currentUser to the dependencies array
   //Second argument is empty array because we don't want to allways re-render the component.
   //https://medium.com/programming-essentials/how-to-do-a-fetch-inside-react-components-7875a213da7e
 

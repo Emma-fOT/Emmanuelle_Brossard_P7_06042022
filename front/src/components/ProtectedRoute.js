@@ -6,7 +6,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
   const location = useLocation();
   // To add a checking of the roles:
   // https://www.youtube.com/watch?v=oUZjO00NkhY&list=PL0Zuz27SZ-6PRCpm9clX0WiBEMB70FWwd&index=3 21:00
-  return currentUser?.user.role?.find((role) => allowedRoles?.includes(role)) ? (
+  return allowedRoles?.includes(currentUser?.user.role) ? (
     //If a user is logged in and has a role that is allowed, render the children
     <Outlet />
   ) : currentUser ? (

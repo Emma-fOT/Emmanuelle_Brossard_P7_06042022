@@ -20,7 +20,7 @@ const DB_DIALECT = process.env.DB_DIALECT;
 const Sequelize = require("sequelize");
 
 exports.signup = (req, res, next) => {
-  const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT }); // ??? Open the connexion for each request ???
+  const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT });
   if (!emailvalidator.validate(req.body.email)) {
     return res.status(401).json({ error: "Email non valide !" });
   } else {
@@ -40,7 +40,7 @@ exports.signup = (req, res, next) => {
               password: hash,
             })
             .then(() => {
-              sequelize.close(); // ??? Close the connexion after each request ???
+              sequelize.close();
               res.status(201).json({ message: "Utilisateur créé !" });
             })
             .catch((error) => {
@@ -54,7 +54,7 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-  const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT }); // ??? Open the connexion for each request ???
+  const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT });
   User(sequelize)
     .findOne({ where: { email: req.body.email } })
     .then((user) => {
@@ -67,10 +67,13 @@ exports.login = (req, res, next) => {
           if (!valid) {
             return res.status(401).json({ error: "Mot de passe incorrect !" });
           }
-          sequelize.close(); // ??? Close the connexion after each request ???
+          sequelize.close();
+          const userInfos = { userId: user.id, username: user.username, email: user.email, role: user.role };
           res.status(200).json({
-            user: { userId: user.id, username: user.username, email: user.email, role: [user.role] },
-            token: jwt.sign({ userId: user.id }, TOKEN_KEY, { expiresIn: "24h" }),
+            user: userInfos,
+            token: jwt.sign(userInfos, TOKEN_KEY, {
+              expiresIn: "24h",
+            }),
           });
         })
         .catch((error) => res.status(500).json({ error }));
