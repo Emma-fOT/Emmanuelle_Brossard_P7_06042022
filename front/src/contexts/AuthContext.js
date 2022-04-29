@@ -87,7 +87,12 @@ export function AuthProvider({ children }) {
     return user;
   }
 
-  const value = { currentUser, signup, login, checkAuth };
+  function logout() {
+    setCurrentUser(null);
+    localStorage.removeItem("groupomania_token");
+  }
+
+  const value = { currentUser, signup, login, checkAuth, logout };
 
   return (
     //Run and render the children just if not loading

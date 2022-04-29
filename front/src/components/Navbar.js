@@ -15,11 +15,12 @@ export default function Header() {
   const animateFrom = { opacity: 0, x: 800 };
   const animateTo = { opacity: 1, x: 0 };
   const { currentUser } = useAuth();
+  console.log(currentUser);
 
   return (
     <div className="navigation">
       <nav className="standardNavigation">
-        {currentUser === undefined ? (
+        {currentUser === undefined || currentUser === null ? ( // currentUser is undefined at the beginning, and is null after logout
           <div className="navlink">
             {/*Documentation: https://reactrouter.com/docs/en/v6/api#navlink */}
             <NavLink to="/login">Se connecter</NavLink>
@@ -27,6 +28,7 @@ export default function Header() {
           </div>
         ) : (
           <div className="navlink">
+            <NavLink to="/dashboard">Tableau de bord</NavLink>
             <NavLink to="/logout">Se déconnecter</NavLink>
           </div>
         )}
@@ -35,7 +37,7 @@ export default function Header() {
         {isMenuOpen ? (
           <>
             {closeMenuIcon}
-            {currentUser === undefined ? (
+            {currentUser === undefined || currentUser === null ? (
               <motion.ul
                 className="navlink"
                 initial={animateFrom}
@@ -68,6 +70,14 @@ export default function Header() {
                 transition={{ delay: 0.05, duration: 0.5 }}
                 onClick={() => closeMobileMenu()}
               >
+                <motion.li
+                  initial={animateFrom}
+                  animate={animateTo}
+                  transition={{ delay: 0, duration: 0.5 }}
+                  onClick={() => closeMobileMenu()}
+                >
+                  <a href="../dashboard">Tableau de bord</a>
+                </motion.li>
                 <motion.li
                   initial={animateFrom}
                   animate={animateTo}
