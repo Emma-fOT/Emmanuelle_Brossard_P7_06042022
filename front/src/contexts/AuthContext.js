@@ -92,7 +92,18 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("groupomania_token");
   }
 
-  const value = { currentUser, signup, login, checkAuth, logout };
+  function deleteProfile(userId, token) {
+    fetch(APIPath + "/" + userId, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(() => {
+      logout();
+    });
+  }
+
+  const value = { currentUser, signup, login, checkAuth, logout, deleteProfile };
 
   return (
     //Run and render the children just if not loading

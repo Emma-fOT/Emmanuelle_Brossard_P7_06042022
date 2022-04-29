@@ -18,6 +18,55 @@
     padding-bottom: 100px;
 }
 
+.editProfile a{
+    color: white;
+}
+
+.profileButton, .editButton, .deleteButton, .confirmDeleteButton{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+    color: rgba(0, 18, 60);
+    border-radius: 10px;
+    border-width: 0;
+    background-color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top:4px;
+    margin-bottom: 4px;
+}
+
+.profileButton, .editButton{
+    padding: 10px;
+    font-size: 1rem;
+    width: 150px;
+}
+
+.deleteButton{
+    padding: 5px;
+    font-size: 0.7rem;
+    width: 120px;
+    color: rgba(0, 18, 60);
+    background-color: red;
+}
+
+.confirmDeleteButton{
+    font-size: 1rem;
+    padding: 10px;
+    color: rgba(0, 18, 60);
+    background-color: red;
+}
+
+.profileButton:hover, .editButton:hover, .deleteButton:hover, .confirmDeleteButton:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all ease 500ms;
+}
+
+.historyButton a{
+    color: white;
+}
+
 .postArea{
     padding-top: 20px;
     width: 70%;

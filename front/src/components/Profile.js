@@ -1,6 +1,5 @@
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { Link } from "react-router-dom";
 import "../styles/Profile.css";
 
 export default function Profile() {
@@ -14,12 +13,6 @@ export default function Profile() {
         <p>Email : {currentUser.user.email}</p>
         <p>Mot de passe : ************</p>
       </div>
-      <p className="editProfile">
-        <Link to="/editProfile">Modifier</Link>
-      </p>
-      <p className="editProfile">
-        <Link to="/profileActivity">Historique</Link>
-      </p>
     </div>
   );
 }

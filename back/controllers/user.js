@@ -19,6 +19,7 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_DIALECT = process.env.DB_DIALECT;
 const Sequelize = require("sequelize");
 
+// To register a user
 exports.signup = (req, res, next) => {
   const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT });
   if (!emailvalidator.validate(req.body.email)) {
@@ -53,6 +54,7 @@ exports.signup = (req, res, next) => {
   }
 };
 
+// To log in a user
 exports.login = (req, res, next) => {
   const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT });
   User(sequelize)
@@ -77,6 +79,31 @@ exports.login = (req, res, next) => {
           });
         })
         .catch((error) => res.status(500).json({ error }));
+    })
+    .catch((error) => res.status(500).json({ error }));
+};
+
+// To delete a user
+exports.deleteUser = (req, res, next) => {
+  const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT });
+  User(sequelize)
+    .findOne({ where: { id: req.params.id } })
+    .then((user) => {
+      if (!user) {
+        return res.status(401).json({ error: "Utilisateur non trouvé !" });
+      }
+      if (user.id !== req.auth.userId) {
+        return res.status(400).json({ error: "Impossible, vous n'êtes pas l'utilisateur ayant créé ce profil !" });
+      }
+      user
+        .destroy()
+        .then(() => {
+          sequelize.close();
+          res.status(200).json({
+            message: "Profil supprimé !",
+          });
+        })
+        .catch((error) => res.status(500).json({ error: error }));
     })
     .catch((error) => res.status(500).json({ error }));
 };
