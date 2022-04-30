@@ -1,20 +1,15 @@
-import React, { useRef } from "react";
-import { useAuth } from "../contexts/AuthContext";
+import React from "react";
 import "../styles/EditProfile.css";
 
-export default function EditProfile() {
-  const { currentUser } = useAuth();
-
-  const usernameRef = useRef();
-  const emailRef = useRef();
-
-  function handleUpdateUsername(event) {
-    currentUser.user.username = usernameRef.current.value;
-    console.log(currentUser.user.username);
+export default function EditProfile(props) {
+  //Lifting up state
+  //See Dashboard.js to read the documentation about it
+  function handleUsernameChange(e) {
+    props.onUsernameChange(e.target.value);
   }
 
-  function handleUpdateEmail(event) {
-    currentUser.user.email = emailRef.current.value;
+  function handleEmailChange(e) {
+    props.onEmailChange(e.target.value);
   }
 
   return (
@@ -24,27 +19,11 @@ export default function EditProfile() {
         <form className="profileForm">
           <label>
             Pseudo*
-            <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder={currentUser.user.username}
-              ref={usernameRef}
-              required
-              onChange={handleUpdateUsername}
-            />
+            <input type="text" id="username" name="username" defaultValue={props.usernameInput} required onChange={handleUsernameChange} />
           </label>
           <label>
             Email*
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={currentUser.user.email}
-              ref={emailRef}
-              required
-              onChange={handleUpdateEmail}
-            />
+            <input type="email" id="email" name="email" defaultValue={props.emailInput} required onChange={handleEmailChange} />
           </label>
         </form>
       </div>

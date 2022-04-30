@@ -83,6 +83,39 @@ exports.login = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
+//To update a user
+exports.updateUser = (req, res, next) => {
+  const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT });
+  User(sequelize)
+    .findOne({ where: { id: req.params.id } })
+    .then((user) => {
+      if (!user) {
+        return res.status(401).json({ error: "Utilisateur non trouvé !" });
+      }
+      if (user.id !== req.auth.userId) {
+        return res.status(401).json({ error: "Impossible, vous n'êtes pas l'utilisateur ayant créé ce profil !" });
+      }
+      user
+        .update({ username: req.body.username, email: req.body.email })
+        .then(() => {
+          sequelize.close();
+          const userInfos = { userId: user.id, username: user.username, email: user.email, role: user.role };
+          res.status(200).json({
+            user: userInfos,
+            token: jwt.sign(userInfos, TOKEN_KEY, {
+              expiresIn: "24h",
+            }),
+          });
+        })
+        .catch((error) => {
+          // Error linked to the email, which has to be unique in the database
+          error = error.errors[0].message;
+          res.status(400).json({ error });
+        });
+    })
+    .catch((error) => res.status(500).json({ error }));
+};
+
 // To delete a user
 exports.deleteUser = (req, res, next) => {
   const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT });
@@ -93,7 +126,7 @@ exports.deleteUser = (req, res, next) => {
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
       }
       if (user.id !== req.auth.userId) {
-        return res.status(400).json({ error: "Impossible, vous n'êtes pas l'utilisateur ayant créé ce profil !" });
+        return res.status(401).json({ error: "Impossible, vous n'êtes pas l'utilisateur ayant créé ce profil !" });
       }
       user
         .destroy()

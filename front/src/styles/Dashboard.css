@@ -22,6 +22,16 @@
     color: white;
 }
 
+.cancelButton{
+    background:none;
+    color: white;
+    border: none;
+    padding: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .profileButton, .editButton, .deleteButton, .confirmDeleteButton{
     margin-left: auto;
     margin-right: auto;

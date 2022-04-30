@@ -103,7 +103,33 @@ export function AuthProvider({ children }) {
     });
   }
 
-  const value = { currentUser, signup, login, checkAuth, logout, deleteProfile };
+  function updateProfile(username, email) {
+    const token = localStorage.getItem("groupomania_token");
+    const userId = jwt(token).userId;
+    fetch(APIPath + "/" + userId, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        username,
+        email,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        setCurrentUser(data);
+        localStorage.setItem("groupomania_token", data.token);
+        console.log("Profil mis à jour : ", data);
+        return currentUser;
+      });
+  }
+
+  const value = { currentUser, signup, login, checkAuth, logout, deleteProfile, updateProfile };
 
   return (
     //Run and render the children just if not loading

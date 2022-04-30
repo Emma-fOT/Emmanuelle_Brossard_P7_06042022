@@ -9,10 +9,11 @@ import DisplayDeletePopup from "./DisplayDeletePopup";
 import "../styles/Dashboard.css";
 
 const Dashboard = () => {
-  const { currentUser, deleteProfile } = useAuth();
+  const { currentUser, deleteProfile, updateProfile } = useAuth();
   const [postsList, setPostsList] = useState([]);
   const [profileEditing, setProfileEditing] = useState(false);
   const [displayDeletePopup, setDisplayDeletePopup] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const url = "http://localhost:3000/api/posts";
@@ -39,14 +40,27 @@ const Dashboard = () => {
   //Second argument is empty array because we don't want to allways re-render the component.
   //https://medium.com/programming-essentials/how-to-do-a-fetch-inside-react-components-7875a213da7e
 
-  function handleClick() {
+  //Lifting state up
+  //https://fr.reactjs.org/docs/lifting-state-up.html
+  const [usernameInput, setUsernameInput] = useState(currentUser.user.username);
+  const [emailInput, setEmailInput] = useState(currentUser.user.email);
+  function handleUsernameChange(usernameInput) {
+    setUsernameInput(usernameInput);
+  }
+  function handleEmailChange(emailInput) {
+    setEmailInput(emailInput);
+  }
+
+  function handleUpdateClick() {
     if (profileEditing === true) {
-      //Update profile
+      updateProfile(usernameInput, emailInput);
     }
     setProfileEditing(!profileEditing);
   }
 
-  const navigate = useNavigate();
+  function handleClick() {
+    setProfileEditing(!profileEditing);
+  }
 
   async function handleDelete() {
     const userId = currentUser.user.userId;
@@ -68,9 +82,18 @@ const Dashboard = () => {
     <div className="dashboard">
       {profileEditing ? (
         <div className="profileContainer">
-          <EditProfile key={currentUser.user.userId} username={currentUser.user.username} email={currentUser.user.email} />
-          <button className="profileButton" onClick={handleClick}>
+          <EditProfile
+            key={currentUser.user.userId}
+            usernameInput={usernameInput}
+            emailInput={emailInput}
+            onUsernameChange={handleUsernameChange}
+            onEmailChange={handleEmailChange}
+          />
+          <button className="profileButton" onClick={handleUpdateClick}>
             Enregistrer
+          </button>
+          <button className="cancelButton" onClick={handleClick}>
+            Annuler
           </button>
         </div>
       ) : (
