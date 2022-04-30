@@ -37,3 +37,22 @@ exports.createPost = (req, res, next) => {
     })
     .catch((error) => res.status(400).json({ error }));
 };
+
+exports.getOneUserPosts = (req, res, next) => {
+  const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT });
+  const Post = require("../models/post")(sequelize);
+  const User = require("../models/user")(sequelize);
+  User.hasMany(Post);
+  Post.belongsTo(User);
+  //No control here: we let the possibility to get the posts of another user (not used yet in the app, but possible to use this in the future)
+  Post.findAll({ include: User, where: { userId: req.params.id }, order: [["dateTime", "DESC"]] })
+    .then((posts) => {
+      sequelize.close();
+      res.status(200).json(posts);
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: error,
+      });
+    });
+};

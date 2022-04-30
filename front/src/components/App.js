@@ -10,6 +10,7 @@ import AdminDashboard from "./AdminDashboard";
 import "../styles/App.css";
 import { AuthProvider } from "../contexts/AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
+import ActivityLog from "./ActivityLog";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route element={<ProtectedRoute allowedRoles={["subscriber"]} />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/activity" element={<ActivityLog />} />
           </Route>
           <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
             <Route path="/admindashboard" element={<AdminDashboard />} />

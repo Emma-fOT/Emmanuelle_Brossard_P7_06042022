@@ -106,7 +106,7 @@ const Dashboard = () => {
             Supprimer
           </button>
           <p className="historyButton">
-            <Link to="/profileActivity">Consulter l'historique</Link>
+            <Link to="/activity">Consulter l'historique</Link>
           </p>
         </div>
       )}
