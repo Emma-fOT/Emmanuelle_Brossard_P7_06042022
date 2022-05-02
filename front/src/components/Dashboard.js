@@ -78,6 +78,29 @@ const Dashboard = () => {
     setDisplayDeletePopup(!displayDeletePopup);
   };
 
+  function handleNewPostChange() {
+    const url = "http://localhost:3000/api/posts";
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${currentUser.token}`,
+      },
+    };
+    fetch(url, options).then(
+      (response) => {
+        if (response.ok) {
+          response.json().then((data) => {
+            setPostsList(data);
+          });
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   return (
     <div className="dashboard">
       {profileEditing ? (
@@ -112,7 +135,7 @@ const Dashboard = () => {
       )}
       <div className="postArea">
         <h1 className="dashboardTitle">Bienvenue {currentUser.user.username}</h1>
-        <Newpost />
+        <Newpost onNewPostChange={handleNewPostChange} />
         <div className="postFeed">
           {postsList.map((elt) => {
             const postKey = "postKey-" + elt.id;

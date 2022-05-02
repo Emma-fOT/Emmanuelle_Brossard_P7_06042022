@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import "../styles/Newpost.css";
 import NewpostPopup from "./NewpostPopup";
 
-export default function Newpost() {
+export default function Newpost(props) {
   const newpostContentRef = useRef(null);
   const [error, setError] = useState();
   const { currentUser } = useAuth();
@@ -21,6 +21,7 @@ export default function Newpost() {
     } else {
       try {
         await saveNewpost(newpostContent);
+        props.onNewPostChange(); //Lifting the state up
         alert("Post créé avec succès. Merci pour ta contribution !");
         togglePopup();
       } catch (error) {
