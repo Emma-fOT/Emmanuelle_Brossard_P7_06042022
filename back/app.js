@@ -60,7 +60,9 @@ async function initialize() {
         // Initialize models and associations
         let eachUser = require("./models/user")(sequelize);
         let eachPost = require("./models/post")(sequelize);
-        eachUser.hasMany(eachPost);
+        // https://sequelize.org/docs/v6/core-concepts/assocs/
+        // We want that the posts of a user will be deleted if the user is deleted > onDelete: "CASCADE"
+        eachUser.hasMany(eachPost, { onDelete: "CASCADE", onUpdate: "CASCADE" });
         eachPost.belongsTo(eachUser);
         console.log("Initialisation des modèles : ok");
       } catch {

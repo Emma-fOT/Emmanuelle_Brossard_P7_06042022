@@ -85,6 +85,8 @@ export default function AdminDashboard() {
         toggleUserPopup();
         const newUsersList = usersList.filter((user) => user.id !== parseInt(userToDeleteId));
         setUsersList(newUsersList);
+        const newPostsList = postsList.filter((post) => post.userId !== parseInt(userToDeleteId));
+        setPostsList(newPostsList);
       });
     } catch (err) {
       console.log(err);
