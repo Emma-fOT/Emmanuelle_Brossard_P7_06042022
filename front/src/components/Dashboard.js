@@ -9,10 +9,11 @@ import DisplayDeletePopup from "./DisplayDeletePopup";
 import "../styles/Dashboard.css";
 
 const Dashboard = () => {
-  const { currentUser, deleteProfile, updateProfile } = useAuth();
+  const { currentUser, deleteProfile, updateProfile, updatePassword } = useAuth();
   const [postsList, setPostsList] = useState([]);
   const [profileEditing, setProfileEditing] = useState(false);
   const [displayDeletePopup, setDisplayDeletePopup] = useState(false);
+  const [error, setError] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,22 +45,67 @@ const Dashboard = () => {
   //https://fr.reactjs.org/docs/lifting-state-up.html
   const [usernameInput, setUsernameInput] = useState(currentUser.user.username);
   const [emailInput, setEmailInput] = useState(currentUser.user.email);
+  const [currentPasswordInput, setCurrentPasswordInput] = useState("");
+  const [newPasswordInput, setNewPasswordInput] = useState("");
+  const [newPasswordConfirmInput, setNewPasswordConfirmInput] = useState("");
   function handleUsernameChange(usernameInput) {
     setUsernameInput(usernameInput);
   }
   function handleEmailChange(emailInput) {
     setEmailInput(emailInput);
   }
+  function handleCurrentPasswordChange(currentPasswordInput) {
+    setCurrentPasswordInput(currentPasswordInput);
+  }
+  function handleNewPasswordChange(newPasswordInput) {
+    setNewPasswordInput(newPasswordInput);
+  }
+  function handleNewPasswordConfirmChange(newPasswordConfirmInput) {
+    setNewPasswordConfirmInput(newPasswordConfirmInput);
+  }
 
-  function handleUpdateClick() {
-    if (profileEditing === true) {
-      updateProfile(usernameInput, emailInput);
+  async function handleUpdateClick() {
+    setError("");
+    if (currentPasswordInput !== "") {
+      if (newPasswordInput !== newPasswordConfirmInput) {
+        return setError("Les mots de passe ne correspondent pas");
+      } else {
+        if (newPasswordInput !== "") {
+          try {
+            await updatePassword(currentPasswordInput, newPasswordInput);
+          } catch (error) {
+            return setError(error.message);
+          }
+        } else {
+          return setError("Veuillez entrer un nouveau mot de passe");
+        }
+      }
+    } else {
+      if (newPasswordInput !== "") {
+        return setError("Veuillez entrer votre mot de passe actuel");
+      }
     }
-    setProfileEditing(!profileEditing);
+    try {
+      await updateProfile(usernameInput, emailInput);
+      setProfileEditing(!profileEditing);
+    } catch (error) {
+      setError(error.message);
+      setUsernameInput(currentUser.user.username);
+      setEmailInput(currentUser.user.email);
+      setCurrentPasswordInput("");
+      setNewPasswordInput("");
+      setNewPasswordConfirmInput("");
+    }
   }
 
   function handleClick() {
     setProfileEditing(!profileEditing);
+    setError("");
+    setUsernameInput(currentUser.user.username);
+    setEmailInput(currentUser.user.email);
+    setCurrentPasswordInput("");
+    setNewPasswordInput("");
+    setNewPasswordConfirmInput("");
   }
 
   async function handleDelete() {
@@ -109,8 +155,15 @@ const Dashboard = () => {
             key={currentUser.user.userId}
             usernameInput={usernameInput}
             emailInput={emailInput}
+            currentPasswordInput={currentPasswordInput}
+            newPasswordInput={newPasswordInput}
+            newPasswordConfirmInput={newPasswordConfirmInput}
             onUsernameChange={handleUsernameChange}
             onEmailChange={handleEmailChange}
+            onCurrentPasswordChange={handleCurrentPasswordChange}
+            onNewPasswordChange={handleNewPasswordChange}
+            onNewPasswordConfirmChange={handleNewPasswordConfirmChange}
+            error={error}
           />
           <button className="profileButton" onClick={handleUpdateClick}>
             Enregistrer

@@ -83,7 +83,7 @@ exports.login = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-//To update a user
+//To update a user profile
 exports.updateUser = (req, res, next) => {
   const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT });
   User(sequelize)
@@ -114,6 +114,47 @@ exports.updateUser = (req, res, next) => {
         });
     })
     .catch((error) => res.status(500).json({ error }));
+};
+
+//To update the password of a user
+exports.updatePasswordUser = (req, res, next) => {
+  const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT });
+  User(sequelize)
+    .findOne({ where: { id: req.params.id } })
+    .then((user) => {
+      if (!user) {
+        return res.status(401).json({ error: "Utilisateur non trouvé !" });
+      }
+      if (user.id !== req.auth.userId) {
+        return res.status(401).json({ error: "Impossible, vous n'êtes pas l'utilisateur ayant créé ce profil !" });
+      }
+      bcrypt.compare(req.body.currentPassword, user.password).then((valid) => {
+        if (!valid) {
+          return res.status(401).json({ error: "Mot de passe incorrect !" });
+        }
+        if (!passwordSchema.validate(req.body.newPassword)) {
+          return res.status(401).json({
+            error:
+              "Nouveau mot de passe trop faible : il doit contenir au moins 8 caractères (dont au moins un chiffre, une majuscule, une minuscule et un caractère spécial) !",
+          });
+        } else {
+          bcrypt
+            .hash(req.body.newPassword, 10)
+            .then((hash) => {
+              user
+                .update({ password: hash })
+                .then(() => {
+                  sequelize.close();
+                  res.status(201).json({ message: "Mot de passe mis à jour !" });
+                })
+                .catch((error) => {
+                  res.status(400).json({ error });
+                });
+            })
+            .catch((error) => res.status(500).json({ error }));
+        }
+      });
+    });
 };
 
 // To delete a user

@@ -93,7 +93,7 @@ export function AuthProvider({ children }) {
   }
 
   function deleteProfile(userId, token) {
-    fetch(APIPath + "/" + userId, {
+    return fetch(APIPath + "/" + userId, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -106,7 +106,7 @@ export function AuthProvider({ children }) {
   function updateProfile(username, email) {
     const token = localStorage.getItem("groupomania_token");
     const userId = jwt(token).userId;
-    fetch(APIPath + "/" + userId, {
+    return fetch(APIPath + "/" + userId, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -129,7 +129,31 @@ export function AuthProvider({ children }) {
       });
   }
 
-  const value = { currentUser, signup, login, checkAuth, logout, deleteProfile, updateProfile };
+  function updatePassword(currentPassword, newPassword) {
+    const token = localStorage.getItem("groupomania_token");
+    const userId = jwt(token).userId;
+    return fetch(APIPath + "/password/" + userId, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        currentPassword,
+        newPassword,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        console.log("Mot de passe mis à jour : ************");
+        return data;
+      });
+  }
+
+  const value = { currentUser, signup, login, checkAuth, logout, deleteProfile, updateProfile, updatePassword };
 
   return (
     //Run and render the children just if not loading
