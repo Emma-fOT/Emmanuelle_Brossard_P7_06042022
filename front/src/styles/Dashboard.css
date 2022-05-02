@@ -58,6 +58,8 @@
     width: 120px;
     color: rgba(0, 18, 60);
     background-color: red;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .confirmDeleteButton{

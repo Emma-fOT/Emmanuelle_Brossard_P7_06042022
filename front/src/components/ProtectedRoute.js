@@ -11,7 +11,11 @@ const ProtectedRoute = ({ allowedRoles }) => {
     <Outlet />
   ) : currentUser ? (
     //If a user is logged in, but not allowed to access the page, redirect to his dashboard
-    <Navigate to="/dashboard" state={{ from: location }} replace />
+    currentUser.user.role === "admin" ? (
+      <Navigate to="/admindashboard" state={{ from: location }} replace />
+    ) : (
+      <Navigate to="/dashboard" state={{ from: location }} replace />
+    )
   ) : (
     //If a user is not logged in, redirect to the home page
     <Navigate to="/" state={{ from: location }} replace />

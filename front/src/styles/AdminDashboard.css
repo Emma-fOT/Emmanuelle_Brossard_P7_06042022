@@ -1,0 +1,121 @@
+.adminDashboard{
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-wrap: nowrap;
+    color: rgba(0, 18, 60);
+}
+
+.adminMenuContainer{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 18, 60);
+    color: white;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.adminDashboardTitle{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.mngtButton, .deleteAdminButton{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+    color: rgba(0, 18, 60);
+    border-radius: 10px;
+    border-width: 0;
+    background-color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top:4px;
+    margin-bottom: 4px;
+}
+
+.mngtButton{
+    padding: 10px;
+    width: 150px;
+}
+
+.deleteAdminButton{
+    width: 40px;
+    height: 40px;
+    color: rgba(0, 18, 60);
+    background-color: red;
+}
+
+.mngtButton:hover, .deleteAdminButton:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all ease 500ms;
+}
+
+.postMngtArea, .userMngtArea{
+    padding-top: 20px;
+    width: 70%;
+}
+
+.displayPost{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.displayPost .post{
+    width: 80%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.displayPost .deleteAdminButtonContainer{
+    width: 100px;
+    text-align: right;
+}
+
+table{
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table, td{
+    border: solid 1px rgba(0, 18, 60);
+    border-collapse: collapse;
+}
+td{
+    padding: 2px;
+}
+thead{
+    text-align: left;
+}
+.actionRaw{
+    width: 100px;
+}
+.emailRaw{
+    width: 200px;
+}
+.pseudoRaw{
+    width: 150px;
+}
+
+@media all and (max-width: 980px) {
+    .adminDashboard{
+        flex-direction: column;
+    }
+    .adminMenuContainer, .postMngtArea, .userMngtArea{
+        width:100%;
+    }
+    .adminMenuContainer{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .displayPost .deleteAdminButtonContainer{
+        width: 70px;
+    }
+}

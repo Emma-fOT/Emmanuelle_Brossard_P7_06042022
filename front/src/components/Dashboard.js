@@ -115,7 +115,8 @@ const Dashboard = () => {
         <Newpost />
         <div className="postFeed">
           {postsList.map((elt) => {
-            return <Posts key={elt.id} user={elt.user.username} postContent={elt.postContent} dateTime={elt.dateTime} />;
+            const postKey = "postKey-" + elt.id;
+            return <Posts key={postKey} user={elt.user.username} postContent={elt.postContent} dateTime={elt.dateTime} />;
           })}
         </div>
       </div>

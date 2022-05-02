@@ -28,7 +28,11 @@ export default function Header() {
           </div>
         ) : (
           <div className="navlink">
-            <NavLink to="/dashboard">Tableau de bord</NavLink>
+            {currentUser.user.role === "admin" ? (
+              <NavLink to="/admindashboard">Tableau d'administration</NavLink>
+            ) : (
+              <NavLink to="/dashboard">Tableau de bord</NavLink>
+            )}
             <NavLink to="/logout">Se déconnecter</NavLink>
           </div>
         )}

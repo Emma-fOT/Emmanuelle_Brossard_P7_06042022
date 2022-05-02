@@ -39,7 +39,8 @@ export default function ActivityLog() {
       </p>
       <div className="activityFeed">
         {postsList.map((elt) => {
-          return <Posts key={elt.id} user={elt.user.username} postContent={elt.postContent} dateTime={elt.dateTime} />;
+          const activityKey = "activityKey-" + elt.id;
+          return <Posts key={activityKey} user={elt.user.username} postContent={elt.postContent} dateTime={elt.dateTime} />;
         })}
       </div>
     </div>

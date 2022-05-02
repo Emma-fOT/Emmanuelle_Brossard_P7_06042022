@@ -126,7 +126,9 @@ exports.deleteUser = (req, res, next) => {
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
       }
       if (user.id !== req.auth.userId) {
-        return res.status(401).json({ error: "Impossible, vous n'êtes pas l'utilisateur ayant créé ce profil !" });
+        if (req.auth.userRole !== "admin") {
+          return res.status(401).json({ error: "Impossible, vous n'êtes pas l'utilisateur ayant créé ce profil !" });
+        }
       }
       user
         .destroy()
@@ -139,4 +141,23 @@ exports.deleteUser = (req, res, next) => {
         .catch((error) => res.status(500).json({ error: error }));
     })
     .catch((error) => res.status(500).json({ error }));
+};
+
+// To get all users
+exports.getAllUsers = (req, res, next) => {
+  if (req.auth.userRole !== "admin") {
+    return res.status(401).json({ error: "Impossible, seul un administrateur peut avoir accès à la liste des utilisateurs !" });
+  }
+  const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT });
+  const User = require("../models/user")(sequelize);
+  User.findAll({ order: [["email", "ASC"]] })
+    .then((users) => {
+      sequelize.close();
+      res.status(200).json(users);
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: error,
+      });
+    });
 };
