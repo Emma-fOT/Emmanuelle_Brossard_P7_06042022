@@ -24,6 +24,9 @@ exports.signup = (req, res, next) => {
   const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, { dialect: DB_DIALECT });
   if (!emailvalidator.validate(req.body.email)) {
     return res.status(401).json({ error: "Email non valide !" });
+  }
+  if (req.body.username.length < 3) {
+    return res.status(401).json({ error: "Pseudo non valide. Il faut minimum 3 caractères." });
   } else {
     if (!passwordSchema.validate(req.body.password)) {
       return res.status(401).json({
@@ -94,6 +97,9 @@ exports.updateUser = (req, res, next) => {
       }
       if (user.id !== req.auth.userId) {
         return res.status(401).json({ error: "Impossible, vous n'êtes pas l'utilisateur ayant créé ce profil !" });
+      }
+      if (req.body.username.length < 3) {
+        return res.status(401).json({ error: "Pseudo non valide. Il faut minimum 3 caractères." });
       }
       user
         .update({ username: req.body.username, email: req.body.email })
