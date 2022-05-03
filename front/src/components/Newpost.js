@@ -5,6 +5,7 @@ import NewpostPopup from "./NewpostPopup";
 
 export default function Newpost(props) {
   const newpostContentRef = useRef(null);
+  const newImageUrlRef = useRef(null);
   const [newImageUrl, setNewImageUrl] = useState();
   const [error, setError] = useState();
   const { currentUser } = useAuth();
@@ -27,13 +28,18 @@ export default function Newpost(props) {
     if (newpostContent === "") {
       setError("Ecris quelque chose avant de poster !");
     } else {
-      try {
-        await saveNewpost(newpostContent, newImageUrl);
-        props.onNewPostChange(); //Lifting the state up
-        alert("Post créé avec succès. Merci pour ta contribution !");
-        togglePopup();
-      } catch (error) {
-        alert("Une erreur est survenue lors de la création du post.");
+      const img = newImageUrlRef.current.files[0];
+      if (img !== undefined && !img.type.match("image/jpg|jpeg|png")) {
+        setError("Format d'image invalide. L'image doit être au format jpg, jpeg ou png");
+      } else {
+        try {
+          await saveNewpost(newpostContent, newImageUrl);
+          props.onNewPostChange(); //Lifting the state up
+          alert("Post créé avec succès. Merci pour ta contribution !");
+          togglePopup();
+        } catch (error) {
+          alert("Une erreur est survenue lors de la création du post.");
+        }
       }
     }
   }
@@ -79,6 +85,7 @@ export default function Newpost(props) {
                 accept="image/png, image/jpeg, image/jpg"
                 id="newImageUrlInput"
                 name="newImageUrlInput"
+                ref={newImageUrlRef}
                 onChange={handleUploadImage}
               ></input>
               <button className="submitButton" onClick={newpostSubmit}>
