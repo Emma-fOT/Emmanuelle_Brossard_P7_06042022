@@ -5,13 +5,21 @@ import NewpostPopup from "./NewpostPopup";
 
 export default function Newpost(props) {
   const newpostContentRef = useRef(null);
+  const [newImageUrl, setNewImageUrl] = useState();
   const [error, setError] = useState();
   const { currentUser } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
   const togglePopup = () => {
     setIsOpen(!isOpen);
+    setError("");
+    setNewImageUrl(null);
   };
+
+  function handleUploadImage(e) {
+    const img = e.target.files[0];
+    setNewImageUrl(img);
+  }
 
   async function newpostSubmit(event) {
     event.preventDefault();
@@ -20,7 +28,7 @@ export default function Newpost(props) {
       setError("Ecris quelque chose avant de poster !");
     } else {
       try {
-        await saveNewpost(newpostContent);
+        await saveNewpost(newpostContent, newImageUrl);
         props.onNewPostChange(); //Lifting the state up
         alert("Post créé avec succès. Merci pour ta contribution !");
         togglePopup();
@@ -30,16 +38,19 @@ export default function Newpost(props) {
     }
   }
 
-  function saveNewpost(postContent) {
+  function saveNewpost(postContent, imageUrl) {
+    //Impossible to send a file through a JSON request using fetch
+    //Delete the header "Content-Type"
+    //And use formData instead of json
+    const formData = new FormData();
+    formData.append("postContent", postContent);
+    formData.append("imageUrl", imageUrl);
     return fetch("http://localhost:3000/api/posts", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${currentUser.token}`,
       },
-      body: JSON.stringify({
-        postContent,
-      }),
+      body: formData,
     })
       .then((res) => res.json())
       .catch((error) => {
@@ -62,6 +73,14 @@ export default function Newpost(props) {
                 ref={newpostContentRef}
                 required
               />
+              <label className="imageLabel">Ajouter une photo au post : </label>
+              <input
+                type="file"
+                accept="image/png, image/jpeg, image/jpg"
+                id="newImageUrlInput"
+                name="newImageUrlInput"
+                onChange={handleUploadImage}
+              ></input>
               <button className="submitButton" onClick={newpostSubmit}>
                 Publier
               </button>

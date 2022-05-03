@@ -12,6 +12,7 @@ module.exports = (sequelize) => {
       postContent: {
         type: DataTypes.TEXT,
       },
+      imageUrl: { type: DataTypes.TEXT },
       dateTime: {
         type: DataTypes.DATE,
       },

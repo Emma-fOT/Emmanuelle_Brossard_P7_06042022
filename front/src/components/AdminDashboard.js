@@ -75,6 +75,54 @@ export default function AdminDashboard() {
 
   async function handleConfirmUserDelete() {
     try {
+      //Find all the postIds of the user to delete
+      fetch("http://localhost:3000/api/posts/" + userToDeleteId, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${currentUser.token}`,
+        },
+      }).then(
+        (response) => {
+          if (response.ok) {
+            response.json().then((data) => {
+              //Delete all the posts of the user to delete
+              data.forEach((post) => {
+                fetch("http://localhost:3000/api/posts/" + post.id, {
+                  method: "DELETE",
+                  headers: {
+                    Authorization: `Bearer ${currentUser.token}`,
+                  },
+                }).catch((error) => {
+                  console.log("Error: " + error);
+                  alert("Une erreur est apparue pendant l'opération de suppression des posts associés à ce profil.");
+                });
+              });
+              deleteProfile();
+            });
+          } else {
+            console.log("Error: " + response.status);
+            alert(
+              "Une erreur est apparue lors de l'opération de recherche des posts associés à ce profil. Le profil et ses posts associés n'ont pas été supprimés."
+            );
+          }
+        },
+        (error) => {
+          console.log("Error: " + error);
+          alert(
+            "Une erreur est apparue lors de l'opération de recherche des posts associés à ce profil. Le profil et ses posts associés n'ont pas été supprimés."
+          );
+        }
+      );
+    } catch (error) {
+      console.log("Error: " + error);
+      alert("Problème de connexion à l'API. Le profil et ses posts associés n'ont pas été supprimés.");
+    }
+  }
+
+  //Delete the user
+  async function deleteProfile() {
+    try {
       fetch("http://localhost:3000/api/auth/" + userToDeleteId, {
         method: "DELETE",
         headers: {
@@ -90,6 +138,7 @@ export default function AdminDashboard() {
       });
     } catch (err) {
       console.log(err);
+      alert("Une erreur est apparue pendant l'opération de suppression du profil. Les posts associés à ce profil ont bien été supprimés.");
     }
   }
 
@@ -143,7 +192,7 @@ export default function AdminDashboard() {
                       X
                     </button>
                   </div>
-                  <Posts user={elt.user.username} postContent={elt.postContent} dateTime={elt.dateTime} />
+                  <Posts user={elt.user.username} postContent={elt.postContent} imageUrl={elt.imageUrl} dateTime={elt.dateTime} />
                 </div>
               );
             })}
@@ -207,7 +256,7 @@ export default function AdminDashboard() {
         <DisplayDeletePopup
           content={
             <div className="newpostForm">
-              <p>Cette action supprime définitivement ce profil. Es-tu sûr.e de toi ?</p>
+              <p>Cette action supprime définitivement ce profil et tous ses posts. Es-tu sûr.e de toi ?</p>
               <button className="confirmDeleteButton" onClick={handleConfirmUserDelete}>
                 Je confirme que je souhaite supprimer ce profil
               </button>
