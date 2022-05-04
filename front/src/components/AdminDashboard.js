@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import Posts from "./Posts";
-import DisplayDeletePopup from "./DisplayDeletePopup";
+import DisplayPopup from "./DisplayPopup";
 import "../styles/AdminDashboard.css";
 
 export default function AdminDashboard() {
@@ -240,7 +240,7 @@ export default function AdminDashboard() {
         </div>
       )}
       {displayDeletePostPopup && (
-        <DisplayDeletePopup
+        <DisplayPopup
           content={
             <div className="newpostForm">
               <p>Cette action supprime définitivement ce post. Es-tu sûr.e de toi ?</p>
@@ -253,7 +253,7 @@ export default function AdminDashboard() {
         />
       )}
       {displayDeleteUserPopup && (
-        <DisplayDeletePopup
+        <DisplayPopup
           content={
             <div className="newpostForm">
               <p>Cette action supprime définitivement ce profil et tous ses posts. Es-tu sûr.e de toi ?</p>

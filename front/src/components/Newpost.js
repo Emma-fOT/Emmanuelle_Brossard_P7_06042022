@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import "../styles/Newpost.css";
-import NewpostPopup from "./NewpostPopup";
+import DisplayPopup from "./DisplayPopup";
 
 export default function Newpost(props) {
   const newpostContentRef = useRef(null);
@@ -68,7 +68,7 @@ export default function Newpost(props) {
     <div className="newpost">
       <input className="newpostArea" type="button" value="Quoi de neuf ?" onClick={togglePopup} />
       {isOpen && (
-        <NewpostPopup
+        <DisplayPopup
           content={
             <div className="newpostForm">
               {error && <p className="error">{error}</p>}

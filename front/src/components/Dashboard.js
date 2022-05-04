@@ -5,7 +5,7 @@ import Profile from "./Profile";
 import EditProfile from "./EditProfile";
 import Newpost from "./Newpost";
 import Posts from "./Posts";
-import DisplayDeletePopup from "./DisplayDeletePopup";
+import DisplayPopup from "./DisplayPopup";
 import "../styles/Dashboard.css";
 
 const Dashboard = () => {
@@ -199,7 +199,7 @@ const Dashboard = () => {
         </div>
       </div>
       {displayDeletePopup && (
-        <DisplayDeletePopup
+        <DisplayPopup
           content={
             <div className="newpostForm">
               <p>Cette action supprime définitivement ton profil. Es-tu sûr.e de toi ?</p>
