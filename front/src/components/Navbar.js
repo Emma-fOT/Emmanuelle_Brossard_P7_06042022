@@ -15,7 +15,6 @@ export default function Header() {
   const animateFrom = { opacity: 0, x: 800 };
   const animateTo = { opacity: 1, x: 0 };
   const { currentUser } = useAuth();
-  console.log(currentUser);
 
   return (
     <div className="navigation">
