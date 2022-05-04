@@ -9,7 +9,7 @@ export default function ActivityLog() {
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    const url = "http://localhost:3000/api/posts/" + currentUser.user.userId;
+    const url = "http://localhost:3000/api/auth/" + currentUser.user.userId + "/posts";
     const options = {
       method: "GET",
       headers: {
@@ -40,7 +40,15 @@ export default function ActivityLog() {
       <div className="activityFeed">
         {postsList.map((elt) => {
           const activityKey = "activityKey-" + elt.id;
-          return <Posts key={activityKey} user={elt.user.username} postContent={elt.postContent} dateTime={elt.dateTime} />;
+          return (
+            <Posts
+              key={activityKey}
+              user={elt.user.username}
+              postContent={elt.postContent}
+              imageUrl={elt.imageUrl}
+              dateTime={elt.dateTime}
+            />
+          );
         })}
       </div>
     </div>
