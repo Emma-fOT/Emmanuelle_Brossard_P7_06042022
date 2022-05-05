@@ -76,7 +76,7 @@ export default function AdminDashboard() {
   async function handleConfirmUserDelete() {
     try {
       //Find all the postIds of the user to delete
-      fetch("http://localhost:3000/api/posts/" + userToDeleteId, {
+      fetch("http://localhost:3000/api/auth/" + userToDeleteId + "/posts", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
