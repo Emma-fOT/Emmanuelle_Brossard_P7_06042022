@@ -148,7 +148,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="dashboard">
+    <main className="dashboard">
       {profileEditing ? (
         <div className="profileContainer">
           <EditProfile
@@ -173,7 +173,7 @@ const Dashboard = () => {
           </button>
         </div>
       ) : (
-        <div className="profileContainer">
+        <aside className="profileContainer">
           <Profile />
           <button className="editButton" onClick={handleClick}>
             Modifier
@@ -184,7 +184,7 @@ const Dashboard = () => {
           <p className="historyButton">
             <Link to="/activity">Consulter l'historique</Link>
           </p>
-        </div>
+        </aside>
       )}
       <div className="postArea">
         <h1 className="dashboardTitle">Bienvenue {currentUser.user.username}</h1>
@@ -211,7 +211,7 @@ const Dashboard = () => {
           handleClose={togglePopup}
         />
       )}
-    </div>
+    </main>
   );
 };
 

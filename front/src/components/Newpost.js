@@ -72,6 +72,9 @@ export default function Newpost(props) {
           content={
             <div className="newpostForm">
               {error && <p className="error">{error}</p>}
+              <label className="imageLabel" for="newpostContent">
+                Message :
+              </label>
               <textarea
                 id="newpostContent"
                 name="newpostContent"
@@ -79,7 +82,9 @@ export default function Newpost(props) {
                 ref={newpostContentRef}
                 required
               />
-              <label className="imageLabel">Ajouter une photo au post : </label>
+              <label className="imageLabel" for="newImageUrlInput">
+                Ajouter une photo au post :{" "}
+              </label>
               <input
                 type="file"
                 accept="image/png, image/jpeg, image/jpg"

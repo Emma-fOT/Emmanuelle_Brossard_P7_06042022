@@ -4,11 +4,11 @@ import "../styles/Header.css";
 
 export default function Header() {
   return (
-    <div className="header">
+    <header className="header">
       <a href="../">
         <img src={logo} alt="Grouponamia" className="header_logo"></img>
       </a>
       <Navbar />
-    </div>
+    </header>
   );
 }

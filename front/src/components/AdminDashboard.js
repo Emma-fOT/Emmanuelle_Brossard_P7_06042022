@@ -169,8 +169,8 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="adminDashboard">
-      <div className="adminMenuContainer">
+    <main className="adminDashboard">
+      <aside className="adminMenuContainer">
         <h1 className="adminDashboardTitle">Bienvenue dans le tableau d'administration</h1>
         <button className="mngtButton" onClick={handlePostMngt}>
           Modérer les posts
@@ -178,7 +178,7 @@ export default function AdminDashboard() {
         <button className="mngtButton" onClick={handleUserMngt}>
           Gérer les utilisateurs
         </button>
-      </div>
+      </aside>
       {isPostMngtOpened ? (
         <div className="postMngtArea">
           <h2>Gestion des posts</h2>
@@ -265,6 +265,6 @@ export default function AdminDashboard() {
           handleClose={toggleUserPopup}
         />
       )}
-    </div>
+    </main>
   );
 }
