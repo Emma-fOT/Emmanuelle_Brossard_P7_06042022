@@ -24,9 +24,12 @@ Then :
 
 In the terminal: `cd back`
 .env.example > .env and update the variables.
+Create a "images" folder.
 Run `nodemon server` to start the server (`http://localhost:3000/`).
 
 ### FRONTEND
 
 In the terminal: `cd front`
 Run `npm start` for a dev server. Navigate to `http://localhost:3005/`.
+
+## You can find more informations about the project in the Documentation.pdf file
