@@ -7,6 +7,7 @@ export default function Logout() {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
+  // To logout
   async function handleLogout(event) {
     event.preventDefault();
     try {

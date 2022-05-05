@@ -17,6 +17,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Get all posts of all users
     const url = "http://localhost:3000/api/posts";
     const options = {
       method: "GET",
@@ -64,6 +65,7 @@ const Dashboard = () => {
     setNewPasswordConfirmInput(newPasswordConfirmInput);
   }
 
+  // To update the profile of the current user
   async function handleUpdateClick() {
     setError("");
     if (currentPasswordInput !== "") {
@@ -98,6 +100,7 @@ const Dashboard = () => {
     }
   }
 
+  // To manage the click on the "Modifier" or "Annuler" buttons
   function handleClick() {
     setProfileEditing(!profileEditing);
     setError("");
@@ -108,6 +111,7 @@ const Dashboard = () => {
     setNewPasswordConfirmInput("");
   }
 
+  // To delete the profile of the current user
   async function handleDelete() {
     const userId = currentUser.user.userId;
     const token = currentUser.token;
@@ -124,6 +128,7 @@ const Dashboard = () => {
     setDisplayDeletePopup(!displayDeletePopup);
   };
 
+  // To update the list of the posts after creating a new post
   function handleNewPostChange() {
     const url = "http://localhost:3000/api/posts";
     const options = {
@@ -198,6 +203,9 @@ const Dashboard = () => {
           })}
         </div>
       </div>
+      {
+        // Popup to confirm the deletion of the current user
+      }
       {displayDeletePopup && (
         <DisplayPopup
           content={

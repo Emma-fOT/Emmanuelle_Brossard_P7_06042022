@@ -73,7 +73,7 @@ async function initialize() {
       // Sync all models with database
       sequelize
         .sync() // This creates the table if it doesn't exist (and does nothing if it already exists)
-        //User.sync({ force: true }) - This creates the table, dropping it first if it already existed
+        //User.sync({ force: true }) - This would create the table, dropping it first if it already existed
         .then(() => {
           console.log("Création des tables (si nécessaire) : ok.");
         })

@@ -7,11 +7,9 @@ export default function EditProfile(props) {
   function handleUsernameChange(e) {
     props.onUsernameChange(e.target.value);
   }
-
   function handleEmailChange(e) {
     props.onEmailChange(e.target.value);
   }
-
   function handleCurrentPasswordChange(e) {
     props.onCurrentPasswordChange(e.target.value);
   }
@@ -21,6 +19,7 @@ export default function EditProfile(props) {
   function handleNewPasswordConfirmChange(e) {
     props.onNewPasswordConfirmChange(e.target.value);
   }
+
   return (
     <div className="profile">
       <h2>Informations de profil</h2>

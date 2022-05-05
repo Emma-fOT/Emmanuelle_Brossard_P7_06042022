@@ -22,6 +22,9 @@ export default function Newpost(props) {
     setNewImageUrl(img);
   }
 
+  // To create a new post
+  // A new post can have an image or not
+  // But has to have some text
   async function newpostSubmit(event) {
     event.preventDefault();
     const newpostContent = newpostContentRef.current.value;
@@ -44,6 +47,7 @@ export default function Newpost(props) {
     }
   }
 
+  // To create the post in the database
   function saveNewpost(postContent, imageUrl) {
     //Impossible to send a file through a JSON request using fetch
     //Delete the header "Content-Type"

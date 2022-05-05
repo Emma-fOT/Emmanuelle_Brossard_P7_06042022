@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./components/App";
-// Used for the posts
+// TimeAgo is used for the posts
 // https://gitlab.com/catamphetamine/react-time-ago
 // Default style is in minutes : https://github.com/catamphetamine/javascript-time-ago#custom
 import TimeAgo from "javascript-time-ago";

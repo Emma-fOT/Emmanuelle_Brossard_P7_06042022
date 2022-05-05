@@ -10,6 +10,7 @@ export default function Login() {
   const [error, setError] = useState();
   const navigate = useNavigate();
 
+  // To login
   async function handleSubmit(event) {
     event.preventDefault();
 

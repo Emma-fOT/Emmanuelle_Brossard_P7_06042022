@@ -4,8 +4,10 @@ const dotenv = require("dotenv");
 dotenv.config();
 const TOKEN_KEY = process.env.TOKEN_KEY;
 
+// To check that the user is logged in before doing an action
 module.exports = (req, res, next) => {
   try {
+    // Get the token from the header (Bearer <token>), that's why we need to remove the "Bearer " part
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, TOKEN_KEY);
     const userId = decodedToken.userId;
@@ -22,6 +24,3 @@ module.exports = (req, res, next) => {
     });
   }
 };
-
-//Rendre la connexion persistante
-//https://www.primfx.com/json-web-token-jwt-guide-complet/rendre-connexion-persistante-refresh-token/

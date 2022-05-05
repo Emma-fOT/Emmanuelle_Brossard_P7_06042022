@@ -1,3 +1,4 @@
+import React from "react";
 import logo from "../assets/icone-groupomania-logo-nom.png";
 import "../styles/Footer.css";
 

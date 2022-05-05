@@ -18,4 +18,5 @@ const storage = multer.diskStorage({
   },
 });
 
+// To rename a file with a unique name and upload it to the server
 module.exports = multer({ storage: storage }).single("imageUrl");

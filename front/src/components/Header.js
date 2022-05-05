@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "./Navbar";
 import logo from "../assets/icone-groupomania-logo-nom.png";
 import "../styles/Header.css";

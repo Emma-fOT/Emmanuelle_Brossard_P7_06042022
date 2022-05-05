@@ -12,6 +12,7 @@ export default function Signup() {
   const [error, setError] = useState();
   const navigate = useNavigate();
 
+  // To signup
   async function handleSubmit(event) {
     event.preventDefault();
 

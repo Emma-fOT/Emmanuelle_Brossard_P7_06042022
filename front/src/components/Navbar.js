@@ -1,3 +1,4 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import "../styles/Navbar.css";
@@ -18,14 +19,19 @@ export default function Header() {
 
   return (
     <div className="navigation">
+      {
+        // The standard menu is only displayed on big screens
+      }
       <nav className="standardNavigation">
         {currentUser === undefined || currentUser === null ? ( // currentUser is undefined at the beginning, and is null after logout
+          // Menu to display if the user is not logged in
           <div className="navlink">
             {/*Documentation: https://reactrouter.com/docs/en/v6/api#navlink */}
             <NavLink to="/login">Se connecter</NavLink>
             <NavLink to="/signup">S'inscrire</NavLink>
           </div>
         ) : (
+          // Menu to display if the user is logged in
           <div className="navlink">
             {currentUser.user.role === "admin" ? (
               <NavLink to="/admindashboard">Tableau d'administration</NavLink>
@@ -36,11 +42,15 @@ export default function Header() {
           </div>
         )}
       </nav>
+      {
+        // The hamburger menu is only displayed on mobile screens
+      }
       <nav className="mobileNavigation">
         {isMenuOpen ? (
           <>
             {closeMenuIcon}
             {currentUser === undefined || currentUser === null ? (
+              // Hamburger menu to display if the user is not logged in
               <motion.ul
                 className="navlink"
                 initial={animateFrom}
@@ -66,6 +76,7 @@ export default function Header() {
                 </motion.li>
               </motion.ul>
             ) : (
+              // Hamburger menu to display if the user is logged in
               <motion.ul
                 className="navlink"
                 initial={animateFrom}

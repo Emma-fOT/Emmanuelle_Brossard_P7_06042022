@@ -9,6 +9,7 @@ export default function ActivityLog() {
   const { currentUser } = useAuth();
 
   useEffect(() => {
+    // Get all posts of this user
     const url = "http://localhost:3000/api/auth/" + currentUser.user.userId + "/posts";
     const options = {
       method: "GET",

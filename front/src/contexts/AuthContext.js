@@ -28,6 +28,7 @@ export function AuthProvider({ children }) {
     setIsLoading(false);
   }, []);
 
+  // To login
   function login(email, password) {
     //Or use Axios to make a request to the API: https://www.youtube.com/watch?v=X3qyxo_UTR4&list=PL0Zuz27SZ-6PRCpm9clX0WiBEMB70FWwd&index=2 22:00
     //With Axios, no need to transform the data into JSON & not need to test if the request is ok (it sends automatically an error if not)
@@ -56,6 +57,7 @@ export function AuthProvider({ children }) {
       });
   }
 
+  // To signup
   function signup(username, email, password) {
     return fetch(APIPath + "/signup", {
       method: "POST",
@@ -77,6 +79,7 @@ export function AuthProvider({ children }) {
       });
   }
 
+  // To take some infos from the token
   function checkAuth(token) {
     //Decode the token
     const userId = jwt(token).userId;
@@ -87,11 +90,13 @@ export function AuthProvider({ children }) {
     return user;
   }
 
+  // To logout
   function logout() {
     setCurrentUser(null);
     localStorage.removeItem("groupomania_token");
   }
 
+  // To delete a profile
   function deleteProfile(userId, token) {
     return fetch(APIPath + "/" + userId, {
       method: "DELETE",
@@ -103,6 +108,7 @@ export function AuthProvider({ children }) {
     });
   }
 
+  // To update a profile (username, email)
   function updateProfile(username, email) {
     const token = localStorage.getItem("groupomania_token");
     const userId = jwt(token).userId;
@@ -129,6 +135,7 @@ export function AuthProvider({ children }) {
       });
   }
 
+  // To update a profile (password)
   function updatePassword(currentPassword, newPassword) {
     const token = localStorage.getItem("groupomania_token");
     const userId = jwt(token).userId;

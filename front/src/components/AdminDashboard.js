@@ -15,6 +15,7 @@ export default function AdminDashboard() {
   const [isPostMngtOpened, setIsPostMngtOpened] = useState(true);
 
   useEffect(() => {
+    // Get all posts of all users
     fetch("http://localhost:3000/api/posts", {
       method: "GET",
       headers: {
@@ -33,6 +34,7 @@ export default function AdminDashboard() {
         console.log(error);
       }
     );
+    // Get all profiles of all users
     fetch("http://localhost:3000/api/auth/", {
       method: "GET",
       headers: {
@@ -55,6 +57,7 @@ export default function AdminDashboard() {
 
   async function handleConfirmPostDelete() {
     try {
+      // Delete the post from the database
       fetch("http://localhost:3000/api/posts/" + postToDeleteId, {
         method: "DELETE",
         headers: {
@@ -120,7 +123,7 @@ export default function AdminDashboard() {
     }
   }
 
-  //Delete the user
+  //Delete the user after deleting his posts
   async function deleteProfile() {
     try {
       fetch("http://localhost:3000/api/auth/" + userToDeleteId, {
@@ -131,6 +134,7 @@ export default function AdminDashboard() {
       }).then(() => {
         alert("Profil supprimé avec succès.");
         toggleUserPopup();
+        //Update the state to force to rerender the component, in order to refresh the page (to update the users and posts lists)
         const newUsersList = usersList.filter((user) => user.id !== parseInt(userToDeleteId));
         setUsersList(newUsersList);
         const newPostsList = postsList.filter((post) => post.userId !== parseInt(userToDeleteId));
@@ -142,28 +146,26 @@ export default function AdminDashboard() {
     }
   }
 
+  // Functions related to the deletion of a post
   const togglePostPopup = () => {
     setDisplayDeletePostPopup(!displayDeletePostPopup);
   };
-
-  const toggleUserPopup = () => {
-    setDisplayDeleteUserPopup(!displayDeleteUserPopup);
-  };
-
   const handlePostDelete = (event) => {
     setPostToDeleteId(event.currentTarget.dataset.id);
     togglePostPopup();
   };
-
-  const handleUserDelete = (event) => {
-    setUserToDeleteId(event.currentTarget.dataset.id);
-    toggleUserPopup();
-  };
-
   const handlePostMngt = () => {
     setIsPostMngtOpened(true);
   };
 
+  // Functions related to the deletion of a user
+  const toggleUserPopup = () => {
+    setDisplayDeleteUserPopup(!displayDeleteUserPopup);
+  };
+  const handleUserDelete = (event) => {
+    setUserToDeleteId(event.currentTarget.dataset.id);
+    toggleUserPopup();
+  };
   const handleUserMngt = () => {
     setIsPostMngtOpened(false);
   };
@@ -239,6 +241,9 @@ export default function AdminDashboard() {
           </div>
         </div>
       )}
+      {
+        //Popup to confirm the deletion of a post
+      }
       {displayDeletePostPopup && (
         <DisplayPopup
           content={
@@ -252,6 +257,9 @@ export default function AdminDashboard() {
           handleClose={togglePostPopup}
         />
       )}
+      {
+        // Popup to confirm the deletion of a user
+      }
       {displayDeleteUserPopup && (
         <DisplayPopup
           content={
