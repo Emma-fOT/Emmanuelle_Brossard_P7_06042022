@@ -116,6 +116,54 @@ const Dashboard = () => {
     const userId = currentUser.user.userId;
     const token = currentUser.token;
     try {
+      //Find all the postIds of the user
+      fetch("http://localhost:3000/api/auth/" + userId + "/posts", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }).then(
+        (response) => {
+          if (response.ok) {
+            response.json().then((data) => {
+              //Delete all the posts of the user
+              data.forEach((post) => {
+                fetch("http://localhost:3000/api/posts/" + post.id, {
+                  method: "DELETE",
+                  headers: {
+                    Authorization: `Bearer ${currentUser.token}`,
+                  },
+                }).catch((error) => {
+                  console.log("Error: " + error);
+                  alert("Une erreur est apparue pendant l'opération de suppression des posts associés à ce profil.");
+                });
+              });
+              handleProfileDelete(userId, token);
+            });
+          } else {
+            console.log("Error: " + response.status);
+            alert(
+              "Une erreur est apparue lors de l'opération de recherche des posts associés à ce profil. Le profil et ses posts associés n'ont pas été supprimés."
+            );
+          }
+        },
+        (error) => {
+          console.log("Error: " + error);
+          alert(
+            "Une erreur est apparue lors de l'opération de recherche des posts associés à ce profil. Le profil et ses posts associés n'ont pas été supprimés."
+          );
+        }
+      );
+    } catch (error) {
+      console.log("Error: " + error);
+      alert("Problème de connexion à l'API. Le profil et ses posts associés n'ont pas été supprimés.");
+    }
+  }
+
+  // To delete the profile of the current user after having deleted all his posts
+  async function handleProfileDelete(userId, token) {
+    try {
       await deleteProfile(userId, token);
       alert("Profil supprimé avec succès.");
       navigate("/");

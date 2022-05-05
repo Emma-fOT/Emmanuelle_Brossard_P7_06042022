@@ -57,8 +57,8 @@ exports.deletePost = (req, res, next) => {
       if (!post) {
         return res.status(401).json({ error: "Post non trouvé !" });
       }
-      if (req.auth.userRole !== "admin") {
-        return res.status(401).json({ error: "Impossible, seul un administrateur peut supprimer un post !" });
+      if (req.auth.userRole !== "admin" && post.userId !== req.auth.userId) {
+        return res.status(401).json({ error: "Vous n'avez pas les droits pour supprimer ce post !" });
       }
       const filename = post.imageUrl.split("/images/")[1];
       fs.unlink(`images/${filename}`, () => {
